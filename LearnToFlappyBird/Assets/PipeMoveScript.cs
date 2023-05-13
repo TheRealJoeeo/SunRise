@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PipeMoveScript : MonoBehaviour
 {
+    public float moveSpeed = 5; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,6 @@ public class PipeMoveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += (Vector3.left * moveSpeed) * Time.deltaTime; // Unlike phyics, transform doesn't have a clock so you need a time based system to avoid variabliity based on framerate
     }
 }
