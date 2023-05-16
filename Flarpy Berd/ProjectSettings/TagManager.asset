@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Logic
+  - Bird
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Bird
   - Water
   - UI
   - 
