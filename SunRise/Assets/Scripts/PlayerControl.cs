@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    private float speed = 5f;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
     void Update()
     {
+        // movement
         float x = Input.GetAxis("Horizontal") * speed;
         float y = Input.GetAxis("Vertical") * speed;
 
@@ -14,5 +23,10 @@ public class PlayerMovement : MonoBehaviour
         y *= Time.deltaTime;
 
         transform.Translate(x, y, 0);
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+       Debug.Log("work please");
     }
 }
