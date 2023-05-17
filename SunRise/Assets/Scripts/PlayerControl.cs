@@ -24,9 +24,4 @@ public class PlayerControl : MonoBehaviour
 
         transform.Translate(x, y, 0);
     }
-
-    void OnCollisionStay(Collision collision)
-    {
-       Debug.Log("work please");
-    }
 }
