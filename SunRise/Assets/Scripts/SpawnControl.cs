@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnControl : MonoBehaviour
 {
-    public GameObject itemFab;
-    public GameObject treeFab;
+    [SerializeField] private GameObject itemFab;
+    [SerializeField] private GameObject treeFab;
 
     // Start is called before the first frame update
     void Start()
