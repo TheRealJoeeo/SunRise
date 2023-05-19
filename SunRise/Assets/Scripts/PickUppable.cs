@@ -33,7 +33,7 @@ public class PickUppable : MonoBehaviour
             // check if F is pressed when touching player
             if(Input.GetKeyDown(KeyCode.F))
             {
-                // commit die (delete myself)
+                // commit die (delete this object)
                 Destroy(gameObject);
                 // to add: do the thing to add it to inventory
             }
