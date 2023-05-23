@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class gunControl : MonoBehaviour
 {
-    [SerializeField] private float fireRate;
-    [SerializeField] private float dmg;
-    [SerializeField] private float recoil;
+    // to implement bullet damage later
     [SerializeField] private float bulletVel;
-    [SerializeField] private float accuracy;
 
     [SerializeField] private GameObject bullet;
 
@@ -17,7 +14,7 @@ public class gunControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -25,9 +22,11 @@ public class gunControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject temp = Instantiate(whatIAm, new Vector3(0, 1, 0), transform.rotation);
+            GameObject temp = Instantiate(bullet, new Vector3(0, 1, 0), transform.rotation);
             temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
-            
+            rb = temp.GetComponent<Rigidbody2D>();
+            rb.AddRelativeForce(new Vector2(0, bulletVel));
+            temp.transform.parent = null;
         }   
     }
 }
