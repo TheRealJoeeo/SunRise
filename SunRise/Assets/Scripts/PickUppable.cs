@@ -10,14 +10,24 @@ public class PickUppable : MonoBehaviour
     private bool ranAlready = false;
     // get the canvas object that shows the "press f to pick up" message
     private GameObject dialogue;
+    // determines what the item is
+    [SerializeField] private GameObject whatIAm;
 
     //runs once at start
     void Start()
     {
         // find the object, since we can't just do it in the inspector since these things are prefabs
         dialogue = GameObject.Find("PickUpDialogue");
+        // chooseName();
+        
     }
 
+    private void chooseName()
+    {
+        // GameObject[] names = {Jolt};
+        // name = names[Random.Range(0, 1)];
+    }
+    
     // runs every frame
     void Update() {
         // this only runs once becuase of the boolean
@@ -36,6 +46,8 @@ public class PickUppable : MonoBehaviour
                 // commit die (delete this object)
                 Destroy(gameObject);
                 // to add: do the thing to add it to inventory
+                GameObject temp = Instantiate(whatIAm, new Vector3(0, 1, 0), transform.rotation);
+                temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
             }
         }
     }
