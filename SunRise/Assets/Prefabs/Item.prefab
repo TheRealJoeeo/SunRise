@@ -114,4 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1858fdbdd22dd44ba1510b9d6576dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  possibleItems:
+  - {fileID: 430558745041268, guid: aa0ad2986a7bd5a4fa63f1f1ff9a4778, type: 3}
   whatIAm: {fileID: 430558745041268, guid: aa0ad2986a7bd5a4fa63f1f1ff9a4778, type: 3}

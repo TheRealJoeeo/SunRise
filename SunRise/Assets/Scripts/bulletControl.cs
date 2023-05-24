@@ -6,11 +6,27 @@ public class bulletControl : MonoBehaviour
 {
     private objectDamageControl dmgScript;
     private bool breakableInTrigger;
+    private GameObject parent;
+    
+    private float damage;
+    private float fallOffVel;
+
+    private int cheap = 0; // cheap way to get around the fact that the update function sometimes runs before a force is added to the bullet when it is created, which deletes it instantly since it starts at 0 velocity.
+
+    public void setDamage(float dmg)
+    {
+        damage = dmg;
+    }
+
+    public void setFallOff(float falloff)
+    {
+        fallOffVel = falloff;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        parent = this.transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -19,9 +35,31 @@ public class bulletControl : MonoBehaviour
         if (breakableInTrigger)
         {
             // variable bullet daamage would be applied here
-            if (dmgScript != null) dmgScript.appDmg(2);
-            Destroy(gameObject); // this doesnt work right now for some reason :\
+            if (dmgScript != null) dmgScript.appDmg(damage);
+                Destroy(gameObject.transform.parent.gameObject);
         }
+
+        if (parent.GetComponent<Rigidbody2D>().velocity.magnitude == 0)
+            Debug.Log("bullet falloff velocity bug");
+
+        if (parent.GetComponent<Rigidbody2D>().velocity.magnitude <= fallOffVel && cheap == 10)
+        {
+            if (parent.GetComponent<Rigidbody2D>().velocity.magnitude < 0.01f)
+                Destroy(gameObject.transform.parent.gameObject);
+
+            Color color = parent.GetComponent<SpriteRenderer>().material.color;
+            color.a = map(parent.GetComponent<Rigidbody2D>().velocity.magnitude, 0.01f, fallOffVel, 0, 1);
+            parent.GetComponent<SpriteRenderer>().material.color = color;
+            
+        }
+
+        if (cheap < 10)
+            cheap++;
+    }
+
+    private float map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 
     void OnTriggerEnter2D(Collider2D other)

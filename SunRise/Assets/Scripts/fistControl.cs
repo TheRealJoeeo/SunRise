@@ -22,25 +22,34 @@ public class fistControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // right
-        localLocalR *= 0.9f;
-        Rfist.transform.localPosition = new Vector2((localLocalR.x + 0.4f), (localLocalR.y + 0.4f));
-        // left
-        localLocalL *= 0.9f;
-        Lfist.transform.localPosition = new Vector2((localLocalL.x - 0.4f), (localLocalL.y + 0.4f));
-
-        if (Input.GetMouseButtonDown(0))
+        // meelee mode
+        if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "empty")
         {
-            int temp = Random.Range(0, 2);
-            if (temp == 0)
-                localLocalR = new Vector2(-0.45f, 0.7f);
-            else
-                localLocalL = new Vector2(0.45f, 0.7f);
+            // right
+            localLocalR *= 0.9f;
+            Rfist.transform.localPosition = new Vector2((localLocalR.x + 0.4f), (localLocalR.y + 0.4f));
+            // left
+            localLocalL *= 0.9f;
+            Lfist.transform.localPosition = new Vector2((localLocalL.x - 0.4f), (localLocalL.y + 0.4f));
 
-            if (breakableInTrigger)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (dmgScript != null) dmgScript.appDmg(1);
+                int temp = Random.Range(0, 2);
+                if (temp == 0)
+                    localLocalR = new Vector2(-0.45f, 0.7f);
+                else
+                    localLocalL = new Vector2(0.45f, 0.7f);
+
+                if (breakableInTrigger)
+                {
+                    if (dmgScript != null) dmgScript.appDmg(1);
+                }
             }
+        }
+        else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "pistol")
+        {
+            Lfist.transform.localPosition = new Vector2(0, (localLocalR.y + 0.4f));
+            Rfist.transform.localPosition = new Vector2(0, (localLocalR.y + 0.4f));
         }
     }
 

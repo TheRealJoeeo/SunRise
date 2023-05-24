@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class gunControl : MonoBehaviour
 {
-    // to implement bullet damage later
+    [SerializeField] private string gunType;
     [SerializeField] private float bulletVel;
+    [SerializeField] private float bulletFallOffVel;
+    [SerializeField] private float bulletDmg;
+    [SerializeField] private float firingTypeNotInUseYet;
+
+    [SerializeField] private float xOffSet;
+    [SerializeField] private float yOffSet;
 
     [SerializeField] private GameObject bullet;
 
     private Rigidbody2D rb;
+    private bulletControl bulletScript;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        this.transform.localPosition = new Vector2(xOffSet, yOffSet);
+        GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive(gunType);
     }
 
     // Update is called once per frame
@@ -22,11 +30,19 @@ public class gunControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject temp = Instantiate(bullet, new Vector3(0, 1, 0), transform.rotation);
-            temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
-            rb = temp.GetComponent<Rigidbody2D>();
-            rb.AddRelativeForce(new Vector2(0, bulletVel));
-            temp.transform.parent = null;
+            GameObject temp = Instantiate(bullet, gameObject.transform.Find("bulletSpawnLocation").transform.localPosition, transform.rotation); // creates bullet off of bullet prefab
+            temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false); // sets the bullet to a child of the player to get its rotation
+            bulletScript = temp.transform.GetChild(0).GetComponent<bulletControl>(); // get the child of the bullet, which has the script that has the function to change damage
+            
+            if (bulletScript != null) bulletScript.setDamage(bulletDmg); // sets the damage of the bullet by calling the set damage function in the bulletControl script
+            else Debug.Log("Oh no");
+
+            if (bulletScript != null) bulletScript.setFallOff(bulletFallOffVel); // sets the velocity fall off of the bullet (when it slows down enough it dies)
+            else Debug.Log("Oh no");
+
+            rb = temp.GetComponent<Rigidbody2D>(); // gets the rigidbody of the bullet
+            rb.AddRelativeForce(new Vector2(0, bulletVel)); // move the rigidbody by the velocity set by the user
+            temp.transform.parent = null; // remove the bullet as a child of the player so its detached from it (ie so it doesnt rotate with it anymore)
         }   
     }
 }

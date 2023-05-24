@@ -11,23 +11,19 @@ public class PickUppable : MonoBehaviour
     // get the canvas object that shows the "press f to pick up" message
     private GameObject dialogue;
     // determines what the item is
-    [SerializeField] private GameObject whatIAm;
+    public GameObject[] possibleItems;
+    public GameObject whatIAm;
 
     //runs once at start
     void Start()
     {
         // find the object, since we can't just do it in the inspector since these things are prefabs
         dialogue = GameObject.Find("PickUpDialogue");
-        // chooseName();
-        
+
+        // pick random item to be the item that gets picked up
+        whatIAm = possibleItems[Random.Range(0, possibleItems.Length)];
     }
 
-    private void chooseName()
-    {
-        // GameObject[] names = {Jolt};
-        // name = names[Random.Range(0, 1)];
-    }
-    
     // runs every frame
     void Update() {
         // this only runs once becuase of the boolean
@@ -46,7 +42,8 @@ public class PickUppable : MonoBehaviour
                 // commit die (delete this object)
                 Destroy(gameObject);
                 // to add: do the thing to add it to inventory
-                GameObject temp = Instantiate(whatIAm, new Vector3(0, 1, 0), transform.rotation);
+                // !! WARNING -- Probably gonna have to change something with this line so its more versatile, becuase this deals mostly with items that would appear on the player, but like if it was a health kit you'd have to do somethingelse
+                GameObject temp = Instantiate(whatIAm, new Vector3(0, 0, 1), transform.rotation);
                 temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
             }
         }
