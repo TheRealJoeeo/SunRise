@@ -98,8 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3012a90ac285cff47b78816ecb6e7121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPrefab: {fileID: 430558745041268}
-  gunType: pistol
+  itemType: pistol
   bulletVel: 100
   bulletFallOffVel: 10
   bulletDmg: 2

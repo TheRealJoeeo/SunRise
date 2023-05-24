@@ -39,10 +39,21 @@ public class PickUppable : MonoBehaviour
             // check if F is pressed when touching player
             if(Input.GetKeyDown(KeyCode.F) && GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "empty")
             {
-                // to add: do the thing to add it to inventory
-                // !! WARNING -- Probably gonna have to change something with this line so its more versatile, becuase this deals mostly with items that would appear on the player, but like if it was a health kit you'd have to do somethingelse
-                GameObject temp = Instantiate(whatIAm, new Vector3(0, 0, 1), transform.rotation);
-                temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
+                // if the object is tagged as a weapon, we spawn it in to the player.
+                // If it doesnt have a weapon tag, we will eventually check if its armor,
+                // which will also be spawned to the player, but in a different way so
+                // we'd have a different else if statement, and we'd also have one for
+                // if its not tagged any of those kind of things (ie if it was a medkit)
+                // and then it would do the code accordingly to what it is
+                // (so like if its a medkit itll add 1 to the medkit counter in the
+                // inventory script (when we make it))
+
+                if (whatIAm.tag == "weapon")
+                {
+                    GameObject temp = Instantiate(whatIAm, new Vector3(0, 0, 1), transform.rotation);
+                    temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
+                }
+
                 // commit die (delete this object)
                 Destroy(gameObject);
             }

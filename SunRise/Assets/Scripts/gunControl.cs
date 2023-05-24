@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class gunControl : MonoBehaviour
 {
-    [SerializeField] private string gunType;
+    [SerializeField] private string itemType;
     [SerializeField] private float bulletVel;
     [SerializeField] private float bulletFallOffVel;
     [SerializeField] private float bulletDmg;
@@ -22,7 +22,7 @@ public class gunControl : MonoBehaviour
     void Start()
     {
         this.transform.localPosition = new Vector2(xOffSet, yOffSet);
-        GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive(gunType);
+        GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive(itemType);
     }
 
     // Update is called once per frame
