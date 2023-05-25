@@ -22,6 +22,11 @@ public class PickUppableSet : MonoBehaviour
     public void setWhatIAm(GameObject wia)
     {
         whatIAm = wia;
+        if (whatIAm.transform.Find("WorldImage") != null)
+        {
+            GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
+            temp.transform.SetParent(gameObject.transform, false);
+        }
     }
 
     // runs every frame
@@ -55,6 +60,7 @@ public class PickUppableSet : MonoBehaviour
                     whatIAm.SetActive(true);
                     GameObject temp = Instantiate(whatIAm, new Vector3(0, 0, 1), transform.rotation);
                     temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
+                    temp.transform.Find("WorldImage").gameObject.SetActive(false);
                 }
 
                 // commit die (delete this object)

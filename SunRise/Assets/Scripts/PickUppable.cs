@@ -22,6 +22,12 @@ public class PickUppable : MonoBehaviour
 
         // pick random item to be the item that gets picked up
         whatIAm = possibleItems[Random.Range(0, possibleItems.Length)];
+
+        if (whatIAm.transform.Find("WorldImage") != null)
+        {
+            GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
+            temp.transform.SetParent(gameObject.transform, false);
+        }
     }
 
     // runs every frame
@@ -52,6 +58,7 @@ public class PickUppable : MonoBehaviour
                 {
                     GameObject temp = Instantiate(whatIAm, new Vector3(0, 0, 1), transform.rotation);
                     temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
+                    temp.transform.Find("WorldImage").gameObject.SetActive(false);
                 }
 
                 // commit die (delete this object)

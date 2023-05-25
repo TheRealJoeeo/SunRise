@@ -46,6 +46,8 @@ public class PlayerControl : MonoBehaviour
                 GameObject dropped = this.transform.GetChild(0).GetChild(i).gameObject;
                 Transform droppedTrans = this.transform.GetChild(0).GetChild(i);
 
+                droppedTrans.Find("WorldImage").gameObject.SetActive(true);
+
                 tmp.GetComponent<PickUppableSet>().setWhatIAm(dropped); // set the item type to what was dropped
 
                 droppedTrans.SetParent(GameObject.Find("DroppedGuns").transform);
