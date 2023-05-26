@@ -13,8 +13,8 @@ TagManager:
   - Confiner
   - Water
   - UI
-  - 
-  - 
+  - items
+  - characters
   - 
   - 
   - 
@@ -42,6 +42,12 @@ TagManager:
   m_SortingLayers:
   - name: residues
     uniqueID: 2239059125
+    locked: 0
+  - name: itembgs
+    uniqueID: 1257973389
+    locked: 0
+  - name: lootimages
+    uniqueID: 1823818477
     locked: 0
   - name: Default
     uniqueID: 0

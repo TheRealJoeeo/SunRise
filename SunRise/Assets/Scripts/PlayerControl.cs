@@ -41,7 +41,7 @@ public class PlayerControl : MonoBehaviour
             {
                 GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive("empty"); // first set inventory to empty
 
-                GameObject tmp = Instantiate(setDroppedItemFab, new Vector3(0,0,1), transform.rotation); // then create the item to drop it using item prefab variant
+                GameObject tmp = Instantiate(setDroppedItemFab, new Vector3(0,0,3), transform.rotation); // then create the item to drop it using item prefab variant
 
                 GameObject dropped = this.transform.GetChild(0).GetChild(i).gameObject;
                 Transform droppedTrans = this.transform.GetChild(0).GetChild(i);

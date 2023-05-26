@@ -24,8 +24,9 @@ public class PickUppableSet : MonoBehaviour
         whatIAm = wia;
         if (whatIAm.transform.Find("WorldImage") != null)
         {
-            GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
+            GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 2), transform.rotation);
             temp.transform.SetParent(gameObject.transform, false);
+            temp.transform.localPosition = new Vector3(temp.transform.localPosition.x, temp.transform.localPosition.y, -1);
         }
     }
 

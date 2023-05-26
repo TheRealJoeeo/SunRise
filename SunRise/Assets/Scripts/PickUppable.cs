@@ -27,6 +27,7 @@ public class PickUppable : MonoBehaviour
         {
             GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
             temp.transform.SetParent(gameObject.transform, false);
+            temp.transform.localPosition = new Vector3(temp.transform.localPosition.x, temp.transform.localPosition.y, -1);
         }
     }
 

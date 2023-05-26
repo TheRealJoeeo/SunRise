@@ -51,6 +51,11 @@ public class fistControl : MonoBehaviour
             Lfist.transform.localPosition = new Vector2(0, (localLocalR.y + 0.4f));
             Rfist.transform.localPosition = new Vector2(0, (localLocalR.y + 0.4f));
         }
+        else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "rifle")
+        {
+            Lfist.transform.localPosition = new Vector2(0, (localLocalR.y + 0.4f));
+            Rfist.transform.localPosition = new Vector2(0.1f, (localLocalR.y + 1f));
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

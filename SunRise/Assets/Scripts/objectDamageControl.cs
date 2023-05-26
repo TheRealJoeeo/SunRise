@@ -11,7 +11,7 @@ public class objectDamageControl : MonoBehaviour
     [SerializeField] private GameObject notResidue;
 
     [Tooltip("Particle System for when hit or destroyed (not required)")]
-    public ParticleSystem breakEffect;
+    [SerializeField] private ParticleSystem breakEffect;
     private float health;
 
     private Collider2D c;
