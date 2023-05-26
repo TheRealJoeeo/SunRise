@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bulletControl : MonoBehaviour
 {
+    private ObjectWithDropControl dmgScriptAlt;
     private objectDamageControl dmgScript;
     private bool breakableInTrigger;
     private GameObject parent;
@@ -36,6 +37,7 @@ public class bulletControl : MonoBehaviour
         {
             // variable bullet daamage would be applied here
             if (dmgScript != null) dmgScript.appDmg(damage);
+            else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(damage);
                 Destroy(gameObject.transform.parent.gameObject);
         }
 
@@ -68,6 +70,7 @@ public class bulletControl : MonoBehaviour
         if (other.tag == "breakable")
         {
             dmgScript = other.gameObject.GetComponent<objectDamageControl>();
+            if (dmgScript == null) dmgScriptAlt = other.gameObject.GetComponent<ObjectWithDropControl>();
             breakableInTrigger = true;
         }
     }

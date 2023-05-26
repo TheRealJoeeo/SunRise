@@ -7,18 +7,21 @@ public class PickUppable : MonoBehaviour
     // boolean to detect if touching player
     private bool touching = false;
     // boolean to ensure the thingy in the update loop only runs once
-    private bool ranAlready = false;
+    // private bool ranAlready = false;
     // get the canvas object that shows the "press f to pick up" message
     private GameObject dialogue;
     // determines what the item is
     [SerializeField] private GameObject[] possibleItems;
     private GameObject whatIAm;
 
+    [SerializeField] private float scale = 1.3f;
+
     //runs once at start
     void Start()
     {
-        // find the object, since we can't just do it in the inspector since these things are prefabs
-        dialogue = GameObject.Find("PickUpDialogue");
+        gameObject.transform.localScale = new Vector3(0, 0, 0);
+
+        dialogue = GameObject.Find("DialogueHolder").GetComponent<DialogueHolder>().PickUp;
 
         // pick random item to be the item that gets picked up
         whatIAm = possibleItems[Random.Range(0, possibleItems.Length)];
@@ -33,13 +36,15 @@ public class PickUppable : MonoBehaviour
 
     // runs every frame
     void Update() {
+        gameObject.transform.localScale += ((new Vector3(scale, scale, 0) - gameObject.transform.localScale) / 10f);
+
         // this only runs once becuase of the boolean
-        if (!ranAlready) {
-            // makes the dialogue hidden at start; done here becuase for some reason it was setting the object to null when doing it at start; probably some initialization problem
-            dialogue.SetActive(false);
-            // make it only run once
-            ranAlready = true;
-        }
+        // if (!ranAlready) {
+        // makes the dialogue hidden at start; done here becuase for some reason it was setting the object to null when doing it at start; probably some initialization problem
+        // dialogue.SetActive(false);
+        // make it only run once
+        // ranAlready = true;
+        // }
         // check if touching the player
         if (touching)
         {

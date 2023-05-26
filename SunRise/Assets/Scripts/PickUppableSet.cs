@@ -7,10 +7,12 @@ public class PickUppableSet : MonoBehaviour
     // boolean to detect if touching player
     private bool touching = false;
     // boolean to ensure the thingy in the update loop only runs once
-    private bool ranAlready = false;
+    // private bool ranAlready = false;
     // get the canvas object that shows the "press f to pick up" message
     private GameObject dialogue;
     private GameObject whatIAm;
+
+    [SerializeField] private float scale = 1.3f;
 
     //runs once at start
     void Start()
@@ -21,6 +23,8 @@ public class PickUppableSet : MonoBehaviour
 
     public void setWhatIAm(GameObject wia)
     {
+        gameObject.transform.localScale = new Vector3(0,0,0);
+
         whatIAm = wia;
         if (whatIAm.transform.Find("WorldImage") != null)
         {
@@ -33,14 +37,16 @@ public class PickUppableSet : MonoBehaviour
     // runs every frame
     void Update()
     {
+        gameObject.transform.localScale += ((new Vector3(scale, scale, 0) - gameObject.transform.localScale) / 10f);
+
         // this only runs once becuase of the boolean
-        if (!ranAlready)
-        {
-            // makes the dialogue hidden at start; done here becuase for some reason it was setting the object to null when doing it at start; probably some initialization problem
-            dialogue.SetActive(false);
-            // make it only run once
-            ranAlready = true;
-        }
+        // if (!ranAlready)
+        // {
+        // makes the dialogue hidden at start; done here becuase for some reason it was setting the object to null when doing it at start; probably some initialization problem
+        // dialogue.SetActive(false);
+        // make it only run once
+        // ranAlready = true;
+        // }
         // check if touching the player
         if (touching)
         {

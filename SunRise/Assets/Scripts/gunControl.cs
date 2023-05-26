@@ -25,6 +25,9 @@ public class gunControl : MonoBehaviour
 
     [SerializeField] private GameObject bullet;
 
+    private AudioSource a;
+    [SerializeField] private AudioClip[] sounds;
+
     private Rigidbody2D rb;
     private bulletControl bulletScript;
 
@@ -36,6 +39,10 @@ public class gunControl : MonoBehaviour
         if (shellEjection != null) shellEjection.Stop();
         this.transform.localPosition = new Vector2(xOffSet, yOffSet);
         GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive(itemType);
+
+        a = GetComponent<AudioSource>();
+
+        a.PlayOneShot(sounds[1]);
     }
 
     // Update is called once per frame
@@ -47,9 +54,13 @@ public class gunControl : MonoBehaviour
             (FireRateType == FireType.SemiRapid && Input.GetMouseButtonDown(0)) || 
             (FireRateType == FireType.Rapid && Input.GetMouseButton(0))
             ) {
+
                 if (timer > fireDelayInSecondsIThink)
                 {
-                    GameObject temp = Instantiate(bullet, gameObject.transform.Find("bulletSpawnLocation").transform.localPosition, transform.rotation); // creates bullet off of bullet prefab
+
+                a.PlayOneShot(sounds[0]);
+
+                GameObject temp = Instantiate(bullet, gameObject.transform.Find("bulletSpawnLocation").transform.localPosition, transform.rotation); // creates bullet off of bullet prefab
                     temp.transform.SetParent(GameObject.Find("bulletSpawnLocation").transform, false); // sets the bullet to a child of the player to get its rotation
 
 

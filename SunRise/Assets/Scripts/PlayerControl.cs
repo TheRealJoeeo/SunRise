@@ -9,17 +9,47 @@ public class PlayerControl : MonoBehaviour
     [HideInInspector] private Rigidbody2D rb;
     [HideInInspector] private Vector2 movement;
 
+    [SerializeField] private AudioSource a;
+    [SerializeField] private AudioClip[] sounds;
+    private int ct = 0;
+    
+
+    private float timer = 0.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         // get the rigid body componenet so i dont have to add it in the inspector
         rb = this.GetComponent<Rigidbody2D>();
+
+        a = GetComponent<AudioSource>();
     }
  
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            if (timer >= 0)
+            {
+                a.PlayOneShot(sounds[ct]);
+
+                ct++;
+                if (ct >= 2) ct = 0;
+
+                timer = timer - (speed/900);
+            }
+            timer += Time.deltaTime;
+            Debug.Log(timer);
+        }
+        else
+        {
+            timer = 0;
+        }
+
+
+
         // get the vector movement dependent on user input
         movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -39,6 +69,8 @@ public class PlayerControl : MonoBehaviour
             }
             if (holdingWeapon)
             {
+                a.PlayOneShot(sounds[2]);
+
                 GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive("empty"); // first set inventory to empty
 
                 GameObject tmp = Instantiate(setDroppedItemFab, new Vector3(0,0,3), transform.rotation); // then create the item to drop it using item prefab variant

@@ -5,6 +5,7 @@ using UnityEngine;
 public class fistControl : MonoBehaviour
 {
     private objectDamageControl dmgScript;
+    private ObjectWithDropControl dmgScriptAlt;
     private bool breakableInTrigger;
 
     private Vector2 localLocalR;
@@ -12,11 +13,16 @@ public class fistControl : MonoBehaviour
     [SerializeField] private GameObject Rfist;
     [SerializeField] private GameObject Lfist;
 
+    private AudioSource a;
+
+
     // Start is called before the first frame update
     void Start()
     {
         localLocalR = new Vector2(0, 0);
         localLocalL = new Vector2(0, 0);
+
+        a = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,6 +40,7 @@ public class fistControl : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                a.Play();
                 int temp = Random.Range(0, 2);
                 if (temp == 0)
                     localLocalR = new Vector2(-0.45f, 0.7f);
@@ -43,6 +50,7 @@ public class fistControl : MonoBehaviour
                 if (breakableInTrigger)
                 {
                     if (dmgScript != null) dmgScript.appDmg(1);
+                    else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(1);
                 }
             }
         }
@@ -64,6 +72,7 @@ public class fistControl : MonoBehaviour
         if (other.tag == "breakable")
         {
             dmgScript = other.gameObject.GetComponent<objectDamageControl>();
+            if (dmgScript == null) dmgScriptAlt = other.gameObject.GetComponent<ObjectWithDropControl>();
             breakableInTrigger = true;
         }
     }

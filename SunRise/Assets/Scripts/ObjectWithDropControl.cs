@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class objectDamageControl : MonoBehaviour
+public class ObjectWithDropControl : MonoBehaviour
 {
     [SerializeField] private float initialHealth = 10f;
     [SerializeField] private float initialScale = 0.6f;
@@ -14,13 +14,14 @@ public class objectDamageControl : MonoBehaviour
     [SerializeField] private ParticleSystem breakEffect;
     private float health;
 
+    [SerializeField] private GameObject itemFab;
+
     private Collider2D c;
 
     private bool destroyed = false;
 
     private AudioSource a;
     [SerializeField] private AudioClip[] sounds;
-
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,8 @@ public class objectDamageControl : MonoBehaviour
                 if (breakEffect != null) breakEffect.Emit(Random.Range(7, 14));
                 a.PlayOneShot(sounds[0]);
 
+                GameObject temp = Instantiate(itemFab, gameObject.transform.position, transform.rotation);
+
                 c.enabled = false;
                 Destroy(notResidue);
 
@@ -56,7 +59,7 @@ public class objectDamageControl : MonoBehaviour
     public void appDmg(float dmg) // apply damage function
     {
         a.PlayOneShot(sounds[1]);
-        if (breakEffect != null) breakEffect.Emit(Random.Range(0,2));
+        if (breakEffect != null) breakEffect.Emit(Random.Range(0, 2));
         health -= dmg;
         transform.localScale = new Vector3(map(health, 0, initialHealth, (initialScale / 2f), initialScale), map(health, 0, initialHealth, (initialScale / 2f), initialScale), 0);
     }
