@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float regSpeed = 500f;
+    private float speed;
     [SerializeField] private GameObject setDroppedItemFab;
     [HideInInspector] private Rigidbody2D rb;
     [HideInInspector] private Vector2 movement;
@@ -12,10 +13,18 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private AudioSource a;
     [SerializeField] private AudioClip[] sounds;
     private int ct = 0;
-    
 
     private float timer = 0.0f;
 
+    public float getSpeed()
+    {
+        return regSpeed;
+    }
+
+    public void setSpeed(float sped)
+    {
+        speed = sped;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +33,8 @@ public class PlayerControl : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
 
         a = GetComponent<AudioSource>();
+
+        speed = regSpeed;
     }
  
     // Update is called once per frame
@@ -38,10 +49,9 @@ public class PlayerControl : MonoBehaviour
                 ct++;
                 if (ct >= 2) ct = 0;
 
-                timer = timer - (speed/900);
+                timer = timer - ((1000 - speed)/900);
             }
             timer += Time.deltaTime;
-            Debug.Log(timer);
         }
         else
         {
@@ -69,6 +79,9 @@ public class PlayerControl : MonoBehaviour
             }
             if (holdingWeapon)
             {
+                this.transform.GetChild(0).GetChild(i).gameObject.GetComponent<gunControl>().eraseRecoil();
+                speed = regSpeed;
+
                 a.PlayOneShot(sounds[2]);
 
                 GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive("empty"); // first set inventory to empty

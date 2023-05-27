@@ -5065,7 +5065,8 @@ MonoBehaviour:
   bulletFallOffVel: 25
   bulletDmg: 4
   spreadAngle: 15
-  fireDelayInSecondsIThink: 0.12
+  fireDelayInSecondsIThink: 0.2
+  recoil: 0
   FireRateType: 1
   shellEjection: {fileID: 669391712094420747}
   xOffSet: 0

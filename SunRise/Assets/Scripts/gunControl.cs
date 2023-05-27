@@ -16,7 +16,12 @@ public class gunControl : MonoBehaviour
     [SerializeField] private float bulletFallOffVel;
     [SerializeField] private float bulletDmg;
     [SerializeField] private float spreadAngle;
+
     [SerializeField] private float fireDelayInSecondsIThink;
+    [SerializeField] private float recoil;
+    private bool isRecoiled = false;
+    private PlayerControl spedScript;
+
     [SerializeField] private FireType FireRateType = new FireType();
     [SerializeField] private ParticleSystem shellEjection;
 
@@ -33,6 +38,11 @@ public class gunControl : MonoBehaviour
 
     private float timer = 0.0f;
 
+    public void eraseRecoil()
+    {
+        isRecoiled = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,37 +53,37 @@ public class gunControl : MonoBehaviour
         a = GetComponent<AudioSource>();
 
         a.PlayOneShot(sounds[1]);
+
+        spedScript = GameObject.Find("PlayerHitBox").GetComponent<PlayerControl>();
+
+        isRecoiled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-
-            if (
-            (FireRateType == FireType.SemiRapid && Input.GetMouseButtonDown(0)) || 
-            (FireRateType == FireType.Rapid && Input.GetMouseButton(0))
-            ) {
-
-                if (timer > fireDelayInSecondsIThink)
-                {
+        if (
+        (FireRateType == FireType.SemiRapid && Input.GetMouseButtonDown(0)) ||
+        (FireRateType == FireType.Rapid && Input.GetMouseButton(0))
+        )
+        {
+            if (timer >= 0)
+            {
 
                 a.PlayOneShot(sounds[0]);
 
                 GameObject temp = Instantiate(bullet, gameObject.transform.Find("bulletSpawnLocation").transform.localPosition, transform.rotation); // creates bullet off of bullet prefab
-                    temp.transform.SetParent(GameObject.Find("bulletSpawnLocation").transform, false); // sets the bullet to a child of the player to get its rotation
+                temp.transform.SetParent(GameObject.Find("bulletSpawnLocation").transform, false); // sets the bullet to a child of the player to get its rotation
 
+                bulletScript = temp.transform.GetChild(0).GetComponent<bulletControl>(); // get the child of the bullet, which has the script that has the function to change damage
 
+                if (bulletScript != null) bulletScript.setDamage(bulletDmg); // sets the damage of the bullet by calling the set damage function in the bulletControl script
+                else Debug.Log("Oh no");
 
-                    bulletScript = temp.transform.GetChild(0).GetComponent<bulletControl>(); // get the child of the bullet, which has the script that has the function to change damage
+                if (bulletScript != null) bulletScript.setFallOff(bulletFallOffVel); // sets the velocity fall off of the bullet (when it slows down enough it dies)
+                else Debug.Log("Oh no");
 
-                    if (bulletScript != null) bulletScript.setDamage(bulletDmg); // sets the damage of the bullet by calling the set damage function in the bulletControl script
-                    else Debug.Log("Oh no");
-
-                    if (bulletScript != null) bulletScript.setFallOff(bulletFallOffVel); // sets the velocity fall off of the bullet (when it slows down enough it dies)
-                    else Debug.Log("Oh no");
-
-                    rb = temp.GetComponent<Rigidbody2D>(); // gets the rigidbody of the bullet
+                rb = temp.GetComponent<Rigidbody2D>(); // gets the rigidbody of the bullet
 
                 rb.SetRotation(rb.rotation + Random.Range(-spreadAngle, spreadAngle));
 
@@ -81,12 +91,26 @@ public class gunControl : MonoBehaviour
 
                 temp.transform.parent = null; // remove the bullet as a child of the player so its detached from it (ie so it doesnt rotate with it anymore)
 
+                timer = 0;
                 timer = timer - fireDelayInSecondsIThink;
 
-                    if (shellEjection != null) shellEjection.Emit(1);
-                }
+                if (shellEjection != null) shellEjection.Emit(1);
+
+                isRecoiled = true;
             }
-            else if (timer > fireDelayInSecondsIThink)
-                timer = timer - fireDelayInSecondsIThink;
+        }
+        timer += Time.deltaTime;
+
+        if (timer >= 0)
+            isRecoiled = false;
+
+        if (isRecoiled)
+        {
+            spedScript.setSpeed(spedScript.getSpeed() - recoil);
+        }
+        else
+        {
+            spedScript.setSpeed(spedScript.getSpeed());
+        }
     }
 }

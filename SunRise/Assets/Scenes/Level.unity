@@ -403,6 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rfist: {fileID: 656522223}
   Lfist: {fileID: 1162807670}
+  punchDelay: 0.025
 --- !u!61 &138165737
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1316,7 +1317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18b9c11ba42a8e40a2a009bd5be06a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
+  regSpeed: 500
   setDroppedItemFab: {fileID: 8325443632704415512, guid: d3176731519935a45a7595ff0e89eb0c, type: 3}
   a: {fileID: 1087873914}
   sounds:
