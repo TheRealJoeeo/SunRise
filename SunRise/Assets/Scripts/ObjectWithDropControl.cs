@@ -61,6 +61,7 @@ public class ObjectWithDropControl : MonoBehaviour
         a.PlayOneShot(sounds[1]);
         if (breakEffect != null) breakEffect.Emit(Random.Range(0, 2));
         health -= dmg;
+        if (health < 0) health = 0;
         transform.localScale = new Vector3(map(health, 0, initialHealth, (initialScale / 2f), initialScale), map(health, 0, initialHealth, (initialScale / 2f), initialScale), 0);
     }
 
