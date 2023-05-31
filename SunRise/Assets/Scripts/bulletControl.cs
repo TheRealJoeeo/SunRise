@@ -38,6 +38,10 @@ public class bulletControl : MonoBehaviour
             // variable bullet daamage would be applied here
             if (dmgScript != null) dmgScript.appDmg(damage);
             else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(damage);
+
+            Debug.Log(gameObject.transform.parent.gameObject.GetComponent<Collider2D>() != null);
+
+            if (gameObject.transform.parent.gameObject.GetComponent<Collider2D>() != null)
                 Destroy(gameObject.transform.parent.gameObject);
         }
 
