@@ -38,9 +38,16 @@ public class gunControl : MonoBehaviour
 
     private float timer = 0.0f;
 
+    [SerializeField] private string ammoType; 
+
     public void eraseRecoil()
     {
         isRecoiled = false;
+    }
+
+    public string getAmmoType()
+    {
+        return ammoType; 
     }
 
     // Start is called before the first frame update

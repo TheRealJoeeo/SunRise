@@ -5075,6 +5075,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: 80a55bb2b2fc6624bbaed847d90d1045, type: 3}
   - {fileID: 8300000, guid: 903da599a08887341887a91b884c958d, type: 3}
+  ammoType: 9mm
 --- !u!82 &3860638767799368231
 AudioSource:
   m_ObjectHideFlags: 0
