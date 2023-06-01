@@ -32,9 +32,10 @@ public class PickUppable : MonoBehaviour
             GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
             temp.transform.SetParent(gameObject.transform, false);
             temp.transform.localPosition = new Vector3(temp.transform.localPosition.x, temp.transform.localPosition.y, -1);
-            if (whatIAm.getAmmoType() == "9mm")
+            if (whatIAm.GetComponent<gunControl>().getAmmoType() == "9mm")
             {
-                Instantiate(ammoRing, new Vector3(transform.position.x, transform.position.y), transform.rotation);
+                GameObject ammoRingTemp = Instantiate(ammoRing, new Vector3(0,0,0.5f), transform.rotation);
+                ammoRingTemp.transform.SetParent(gameObject.transform, false);
             }
         }
     }
