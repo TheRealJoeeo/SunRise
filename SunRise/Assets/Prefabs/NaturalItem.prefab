@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: 6175883151607389531, guid: de340fb602e4e774cb5af6b5a045c76d, type: 3}
   - {fileID: 1085019638188162551, guid: 97244c8456c9d7042adb028a3c11b850, type: 3}
   scale: 1.3
+  ammoRing: {fileID: 3404530072773655622, guid: 67f819c3a3ef8954d85cfb2a7a83423d, type: 3}
 --- !u!50 &1189030858273075158
 Rigidbody2D:
   serializedVersion: 4
