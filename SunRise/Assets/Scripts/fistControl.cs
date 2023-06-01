@@ -44,6 +44,8 @@ public class fistControl : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                gameObject.GetComponent<Collider2D>().enabled = true;    
+
                     a.Play();
                     int temp = Random.Range(0, 2);
 
@@ -57,6 +59,10 @@ public class fistControl : MonoBehaviour
                         if (dmgScript != null) dmgScript.appDmg(1);
                         else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(1);
                     }
+
+                gameObject.GetComponent<Collider2D>().enabled = false;
+                gameObject.GetComponent<Collider2D>().enabled = true;
+
             }
         }
         else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "pistol")

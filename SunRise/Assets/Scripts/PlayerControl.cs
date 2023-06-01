@@ -16,6 +16,11 @@ public class PlayerControl : MonoBehaviour
 
     private float timer = 0.0f;
 
+    [HideInInspector] public GameObject itemObj;
+
+    // get the canvas object that shows the "press f to pick up" message
+    private GameObject dialogue;
+
     public float getSpeed()
     {
         return regSpeed;
@@ -29,6 +34,8 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dialogue = GameObject.Find("DialogueHolder").GetComponent<DialogueHolder>().PickUp;
+
         // get the rigid body componenet so i dont have to add it in the inspector
         rb = this.GetComponent<Rigidbody2D>();
 
@@ -110,5 +117,31 @@ public class PlayerControl : MonoBehaviour
     {
         // move rigid body instead of actual player so you have smooth looking collisions
         rb.AddForce(movement * speed * Time.fixedDeltaTime);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // check if that object is player
+        if (other.tag == "items")
+        {
+            // j debug
+            Debug.Log("Press F to pick up");
+            // get the dialogue thingy, make sure it isnt null so no error, then make it show
+            if (dialogue != null) dialogue.SetActive(true);
+            itemObj = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        // check if that object is player
+        if (other.tag == "items")
+        {
+            Debug.Log("Can't anymore");
+            // hide the dialgoue
+            if (dialogue != null) dialogue.SetActive(false);
+            // update the is touching property
+            itemObj = null;
+        }
     }
 }

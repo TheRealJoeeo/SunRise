@@ -8,8 +8,6 @@ public class PickUppable : MonoBehaviour
     private bool touching = false;
     // boolean to ensure the thingy in the update loop only runs once
     // private bool ranAlready = false;
-    // get the canvas object that shows the "press f to pick up" message
-    private GameObject dialogue;
     // determines what the item is
     [SerializeField] private GameObject[] possibleItems;
     private GameObject whatIAm;
@@ -21,7 +19,7 @@ public class PickUppable : MonoBehaviour
     {
         gameObject.transform.localScale = new Vector3(0, 0, 0);
 
-        dialogue = GameObject.Find("DialogueHolder").GetComponent<DialogueHolder>().PickUp;
+        
 
         // pick random item to be the item that gets picked up
         whatIAm = possibleItems[Random.Range(0, possibleItems.Length)];
@@ -49,7 +47,7 @@ public class PickUppable : MonoBehaviour
         if (touching)
         {
             // check if F is pressed when touching player
-            if(Input.GetKeyDown(KeyCode.F) && GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "empty")
+            if(Input.GetKeyDown(KeyCode.F) && GameObject.Find("PlayerHitBox").GetComponent<PlayerControl>().itemObj == gameObject && GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "empty")
             {
                 // if the object is tagged as a weapon, we spawn it in to the player.
                 // If it doesnt have a weapon tag, we will eventually check if its armor,
@@ -77,10 +75,6 @@ public class PickUppable : MonoBehaviour
      void OnTriggerEnter2D(Collider2D other) {
          // check if that object is player
          if (other.tag == "Player") {
-            // j debug
-            Debug.Log("Press F to pick up");
-            // get the dialogue thingy, make sure it isnt null so no error, then make it show
-            if (dialogue != null) dialogue.SetActive(true);
             // update the touching property to true, becuase now its touching
             touching = true;
         }
@@ -90,9 +84,6 @@ public class PickUppable : MonoBehaviour
      void OnTriggerExit2D(Collider2D other) {
          // check if player
          if (other.tag == "Player") {
-            Debug.Log("Can't anymore");
-            // hide the dialgoue
-            if (dialogue != null) dialogue.SetActive(false);
             // update the is touching property
             touching = false;
         }
