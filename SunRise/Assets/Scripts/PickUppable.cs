@@ -14,6 +14,8 @@ public class PickUppable : MonoBehaviour
 
     [SerializeField] private float scale = 1.3f;
 
+    public GameObject ammoRing;  // Gets the ammoRing prefab 
+
     //runs once at start
     void Start()
     {
@@ -24,11 +26,16 @@ public class PickUppable : MonoBehaviour
         // pick random item to be the item that gets picked up
         whatIAm = possibleItems[Random.Range(0, possibleItems.Length)];
 
+        //Dheera here: pretty sure this is the part that spawns in the actual prefab in as a gameObject, so gonna experiment with adding in the ring here 
         if (whatIAm.transform.Find("WorldImage") != null)
         {
             GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
             temp.transform.SetParent(gameObject.transform, false);
             temp.transform.localPosition = new Vector3(temp.transform.localPosition.x, temp.transform.localPosition.y, -1);
+            if (whatIAm.getAmmoType() == "9mm")
+            {
+                Instantiate(ammoRing, new Vector3(transform.position.x, transform.position.y), transform.rotation);
+            }
         }
     }
 

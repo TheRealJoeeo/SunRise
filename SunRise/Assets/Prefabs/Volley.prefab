@@ -55,6 +55,7 @@ MonoBehaviour:
   bulletDmg: 2.1
   spreadAngle: 5
   fireDelayInSecondsIThink: 0.05
+  recoil: 0
   FireRateType: 1
   shellEjection: {fileID: 7815592266637305429}
   xOffSet: 0
@@ -63,6 +64,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: 2978021942ac5d444a03c077c0bf213d, type: 3}
   - {fileID: 8300000, guid: ef4903ecc0f6f174abc3c38b8f22daa6, type: 3}
+  ammoType: 9mm
 --- !u!82 &8224369896802511595
 AudioSource:
   m_ObjectHideFlags: 0
