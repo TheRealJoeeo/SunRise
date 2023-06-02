@@ -4991,7 +4991,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: 7da561d2121bd1f4cb8b538b62b7284f, type: 3}
   - {fileID: 8300000, guid: a15fbecea9633344a89a936d9cab3957, type: 3}
-  ammoType: 12 gauge
+  ammoType: 7.62mm
 --- !u!82 &191643523188624158
 AudioSource:
   m_ObjectHideFlags: 0
