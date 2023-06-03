@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class fistControl : MonoBehaviour
 {
+    [SerializeField] private healthControl plyHPScript;
+
     private objectDamageControl dmgScript;
     private ObjectWithDropControl dmgScriptAlt;
     private bool breakableInTrigger;
@@ -31,20 +33,22 @@ public class fistControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // meelee mode
-        if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "empty")
+        if (plyHPScript.getLife())
         {
-
-            // right
-            localLocalR *= 0.9f;
-            Rfist.transform.localPosition = new Vector2((localLocalR.x + 0.4f), (localLocalR.y + 0.4f));
-            // left
-            localLocalL *= 0.9f;
-            Lfist.transform.localPosition = new Vector2((localLocalL.x - 0.4f), (localLocalL.y + 0.4f));
-
-            if (Input.GetMouseButtonDown(0))
+            // meelee mode
+            if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "empty")
             {
-                gameObject.GetComponent<Collider2D>().enabled = true;    
+
+                // right
+                localLocalR *= 0.9f;
+                Rfist.transform.localPosition = new Vector2((localLocalR.x + 0.4f), (localLocalR.y + 0.4f));
+                // left
+                localLocalL *= 0.9f;
+                Lfist.transform.localPosition = new Vector2((localLocalL.x - 0.4f), (localLocalL.y + 0.4f));
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    gameObject.GetComponent<Collider2D>().enabled = true;
 
                     a.Play();
                     int temp = Random.Range(0, 2);
@@ -60,25 +64,26 @@ public class fistControl : MonoBehaviour
                         else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(1);
                     }
 
-                gameObject.GetComponent<Collider2D>().enabled = false;
-                gameObject.GetComponent<Collider2D>().enabled = true;
+                    gameObject.GetComponent<Collider2D>().enabled = false;
+                    gameObject.GetComponent<Collider2D>().enabled = true;
 
+                }
             }
-        }
-        else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "pistol")
-        {
-            Lfist.transform.localPosition = new Vector2(0, 0.4f);
-            Rfist.transform.localPosition = new Vector2(0, 0.4f);
-        }
-        else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "rifle")
-        {
-            Lfist.transform.localPosition = new Vector2(0, 0.4f);
-            Rfist.transform.localPosition = new Vector2(0.1f, 1f);
-        }
-        else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "sniper")
-        {
-            Lfist.transform.localPosition = new Vector2(0, 0.4f);
-            Rfist.transform.localPosition = new Vector2(0.15f, 1.5f);
+            else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "pistol")
+            {
+                Lfist.transform.localPosition = new Vector2(0, 0.4f);
+                Rfist.transform.localPosition = new Vector2(0, 0.4f);
+            }
+            else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "rifle")
+            {
+                Lfist.transform.localPosition = new Vector2(0, 0.4f);
+                Rfist.transform.localPosition = new Vector2(0.1f, 1f);
+            }
+            else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "sniper")
+            {
+                Lfist.transform.localPosition = new Vector2(0, 0.4f);
+                Rfist.transform.localPosition = new Vector2(0.15f, 1.5f);
+            }
         }
     }
 

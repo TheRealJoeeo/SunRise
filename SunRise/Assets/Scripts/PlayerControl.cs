@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] private healthControl plyHPScript;
+
     [SerializeField] private float regSpeed = 500f;
     private float speed;
     [SerializeField] private GameObject setDroppedItemFab;
@@ -47,69 +49,77 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        if (plyHPScript.getLife())
         {
-            if (timer >= 0)
+            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {
-                a.PlayOneShot(sounds[ct]);
+                if (timer >= 0)
+                {
+                    a.PlayOneShot(sounds[ct]);
 
-                ct++;
-                if (ct >= 2) ct = 0;
+                    ct++;
+                    if (ct >= 2) ct = 0;
 
-                timer = timer - ((1000 - speed)/900);
+                    timer = timer - ((1000 - speed) / 900);
+                }
+                timer += Time.deltaTime;
             }
-            timer += Time.deltaTime;
+            else
+            {
+                timer = 0;
+            }
+
+
+
+            // get the vector movement dependent on user input
+            movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            if (Input.GetKeyDown(KeyCode.Q)) //  q to drop an object
+            {
+                bool holdingWeapon = false;
+                int i = 0;
+                for (; i < this.transform.GetChild(0).childCount; i++)
+                {
+                    Debug.Log(this.transform.GetChild(0).childCount);
+                    if (this.transform.GetChild(0).GetChild(i).gameObject.tag == "weapon")
+                    {
+                        Debug.Log("Found a weapon");
+                        holdingWeapon = true;
+                        break;
+                    }
+                }
+                if (holdingWeapon)
+                {
+                    this.transform.GetChild(0).GetChild(i).gameObject.GetComponent<gunControl>().eraseRecoil();
+                    speed = regSpeed;
+
+                    a.PlayOneShot(sounds[2]);
+
+                    GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive("empty"); // first set inventory to empty
+
+                    GameObject tmp = Instantiate(setDroppedItemFab, new Vector3(0, 0, 3), transform.rotation); // then create the item to drop it using item prefab variant
+
+                    GameObject dropped = this.transform.GetChild(0).GetChild(i).gameObject;
+                    Transform droppedTrans = this.transform.GetChild(0).GetChild(i);
+
+                    droppedTrans.Find("WorldImage").gameObject.SetActive(true);
+
+                    tmp.GetComponent<PickUppableSet>().setWhatIAm(dropped); // set the item type to what was dropped
+
+                    droppedTrans.SetParent(GameObject.Find("DroppedGuns").transform);
+
+                    dropped.SetActive(false);
+
+                    tmp.transform.SetParent(gameObject.transform, false); // parent the drop to the player so it drops under the player
+
+                    tmp.transform.parent = null; // unparent it so it doesnt follow the player anymore
+                }
+            }
         }
         else
         {
-            timer = 0;
-        }
-
-
-
-        // get the vector movement dependent on user input
-        movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        if (Input.GetKeyDown(KeyCode.Q)) //  q to drop an object
-        {
-            bool holdingWeapon = false;
-            int i = 0;
-            for (; i < this.transform.GetChild(0).childCount; i++)
-            {
-                Debug.Log(this.transform.GetChild(0).childCount);
-                if (this.transform.GetChild(0).GetChild(i).gameObject.tag == "weapon")
-                {
-                    Debug.Log("Found a weapon");
-                    holdingWeapon = true;
-                    break;
-                }
-            }
-            if (holdingWeapon)
-            {
-                this.transform.GetChild(0).GetChild(i).gameObject.GetComponent<gunControl>().eraseRecoil();
-                speed = regSpeed;
-
-                a.PlayOneShot(sounds[2]);
-
-                GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive("empty"); // first set inventory to empty
-
-                GameObject tmp = Instantiate(setDroppedItemFab, new Vector3(0,0,3), transform.rotation); // then create the item to drop it using item prefab variant
-
-                GameObject dropped = this.transform.GetChild(0).GetChild(i).gameObject;
-                Transform droppedTrans = this.transform.GetChild(0).GetChild(i);
-
-                droppedTrans.Find("WorldImage").gameObject.SetActive(true);
-
-                tmp.GetComponent<PickUppableSet>().setWhatIAm(dropped); // set the item type to what was dropped
-
-                droppedTrans.SetParent(GameObject.Find("DroppedGuns").transform);
-
-                dropped.SetActive(false);
-
-                tmp.transform.SetParent(gameObject.transform, false); // parent the drop to the player so it drops under the player
-
-                tmp.transform.parent = null; // unparent it so it doesnt follow the player anymore
-            }
+            rb.isKinematic = true;
+            rb.velocity = Vector2.zero;
         }
     }
   

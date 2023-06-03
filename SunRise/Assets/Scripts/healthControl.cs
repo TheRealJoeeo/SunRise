@@ -7,8 +7,14 @@ public class healthControl : MonoBehaviour
 {
     [SerializeField] private float playerHp = 100f;
     private Slider hpbar;
-    private bool life;
+    private bool life = true;
     [SerializeField] private GameObject dicon;
+    [SerializeField] private GameObject playerGraphics;
+
+    public bool getLife()
+    {
+        return life;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +32,7 @@ public class healthControl : MonoBehaviour
         if (playerHp <= 0) {
             life = false;
             dicon.SetActive(true);
+            Destroy(playerGraphics);
         }
         else life = true;
 
