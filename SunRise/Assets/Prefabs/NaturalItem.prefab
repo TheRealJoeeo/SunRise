@@ -156,6 +156,12 @@ MonoBehaviour:
   - {fileID: 4017625081292424746, guid: fce794c7ea45cf9428396e4693718207, type: 3}
   scale: 1.3
   ammoRing: {fileID: 3404530072773655622, guid: 67f819c3a3ef8954d85cfb2a7a83423d, type: 3}
+  yellow: {fileID: 6253544053766209860, guid: 80eace9d3dfa56243899131a22388257, type: 3}
+  blue: {fileID: 1237449045807346412, guid: 02419735626677444a9607c3852f0e78, type: 3}
+  green: {fileID: 5975819197298925735, guid: e64cf046bde9a4e4cbc476150ebaab19, type: 3}
+  red: {fileID: 3224740050492766097, guid: 5faaf6fca2f39334ba6db2a0e33dcc13, type: 3}
+  sniper: {fileID: 4127643333152172589, guid: 7c5213520fa775a4e84bd37764d16b7c, type: 3}
+  black: {fileID: 3399406254823993684, guid: 15a22a216a88b014197b9b10c5b44fee, type: 3}
 --- !u!50 &1189030858273075158
 Rigidbody2D:
   serializedVersion: 4

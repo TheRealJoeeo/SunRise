@@ -29,16 +29,21 @@ public class healthControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K)) {
             applDmg(10);
         }
+        if (Input.GetKeyDown(KeyCode.L)) {
+            applDmg(-10);
+
+        }
         if (playerHp <= 0) {
             life = false;
             dicon.SetActive(true);
-            Destroy(playerGraphics);
+            Destroy(playerGraphics);    
         }
+
         else life = true;
 
   }
 
-    public void applDmg(float dmg) {
+    public void applDmg(float dmg) { // Make it negative to give health 
         //a.PlayOneShot(sounds[1]);
         //if (breakEffect != null) breakEffect.Emit(Random.Range(0,2));
         playerHp -= dmg;

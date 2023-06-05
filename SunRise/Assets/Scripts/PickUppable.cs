@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickUppable : MonoBehaviour
 {
@@ -16,6 +17,15 @@ public class PickUppable : MonoBehaviour
 
     public GameObject ammoRing;  // Gets the ammoRing prefab 
 
+    public GameObject yellowAmmo; 
+    public GameObject blueAmmo;
+    public GameObject greenAmmo;
+    public GameObject redAmmo;
+    public GameObject sniperAmmo;
+    public GameObject blackAmmo;
+
+    public Text ammoCounter;
+    public int ammoCount;
     //runs once at start
     void Start()
     {
@@ -38,6 +48,12 @@ public class PickUppable : MonoBehaviour
                 ammoRingTemp.transform.SetParent(gameObject.transform, false);
                 Color yellow = new Color(0.9490197f, 0.6470588f, 0.003921569f, 1f);
                 ammoRingTemp.GetComponent<Renderer>().material.color = yellow;
+                GameObject Ammotemp = Instantiate(yellowAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
+                Ammotemp.transform.SetParent(gameObject.transform, false);
+                Ammotemp.transform.localPosition = new Vector3(temp.transform.localPosition.x - 2, temp.transform.localPosition.y, -1); //Left one 
+                GameObject Ammotemp2 = Instantiate(yellowAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
+                Ammotemp2.transform.SetParent(gameObject.transform, false);
+                Ammotemp2.transform.localPosition = new Vector3(temp.transform.localPosition.x + 2, temp.transform.localPosition.y, -1); //right one 
             }
             if (whatIAm.GetComponent<gunControl>().getAmmoType() == "7.62mm")
             {
@@ -94,6 +110,11 @@ public class PickUppable : MonoBehaviour
                     GameObject temp = Instantiate(whatIAm, new Vector3(0, 0, 1), transform.rotation);
                     temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
                     temp.transform.Find("WorldImage").gameObject.SetActive(false);
+                }
+                if (whatIAm.tag == "ammo")
+                {
+                    ammoCount++;
+                    ammoCounter.text = ammoCount.ToString(); 
                 }
 
                 // commit die (delete this object)
