@@ -29,6 +29,8 @@ public class PickUppable : MonoBehaviour
     //runs once at start
     void Start()
     {
+        ammoCounter = GameObject.FindGameObjectWithTag("UI").GetComponent<Text>();
+
         gameObject.transform.localScale = new Vector3(0, 0, 0);
 
         

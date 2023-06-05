@@ -8,6 +8,7 @@ TagManager:
   - weapon
   - items
   - ammo
+  - UI
   layers:
   - Default
   - TransparentFX
