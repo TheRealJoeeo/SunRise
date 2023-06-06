@@ -17,12 +17,9 @@ public class PickUppable : MonoBehaviour
 
     public GameObject ammoRing;  // Gets the ammoRing prefab 
 
-    public GameObject yellowAmmo; 
-    public GameObject blueAmmo;
-    public GameObject greenAmmo;
-    public GameObject redAmmo;
-    public GameObject sniperAmmo;
-    public GameObject blackAmmo;
+    
+    public GameObject BlankAmmo;
+ 
 
     public Text ammoCounter;
     public int ammoCount;
@@ -50,12 +47,15 @@ public class PickUppable : MonoBehaviour
                 ammoRingTemp.transform.SetParent(gameObject.transform, false);
                 Color yellow = new Color(0.9490197f, 0.6470588f, 0.003921569f, 1f);
                 ammoRingTemp.GetComponent<Renderer>().material.color = yellow;
-                GameObject Ammotemp = Instantiate(yellowAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
+
+                GameObject Ammotemp = Instantiate(BlankAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
                 Ammotemp.transform.SetParent(gameObject.transform, false);
-                Ammotemp.transform.localPosition = new Vector3(temp.transform.localPosition.x - 2, temp.transform.localPosition.y, -1); //Left one 
-                GameObject Ammotemp2 = Instantiate(yellowAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
+                Ammotemp.transform.localPosition = new Vector3(temp.transform.localPosition.x - 1, temp.transform.localPosition.y, -1); //Left one 
+                Ammotemp.GetComponent<Renderer>().material.color = yellow;
+                GameObject Ammotemp2 = Instantiate(BlankAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
                 Ammotemp2.transform.SetParent(gameObject.transform, false);
-                Ammotemp2.transform.localPosition = new Vector3(temp.transform.localPosition.x + 2, temp.transform.localPosition.y, -1); //right one 
+                Ammotemp2.transform.localPosition = new Vector3(temp.transform.localPosition.x + 1, temp.transform.localPosition.y, -1); //right one 
+                Ammotemp2.GetComponent<Renderer>().material.color = yellow;
             }
             if (whatIAm.GetComponent<gunControl>().getAmmoType() == "7.62mm")
             {
