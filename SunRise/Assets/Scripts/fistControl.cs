@@ -6,6 +6,7 @@ public class fistControl : MonoBehaviour
 {
     [SerializeField] private healthControl plyHPScript;
 
+    private zombieControl zombieScript;
     private objectDamageControl dmgScript;
     private ObjectWithDropControl dmgScriptAlt;
     private bool breakableInTrigger;
@@ -62,6 +63,7 @@ public class fistControl : MonoBehaviour
                     {
                         if (dmgScript != null) dmgScript.appDmg(1);
                         else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(1);
+                        else if (zombieScript != null) zombieScript.appDmg(1);
                     }
 
                     gameObject.GetComponent<Collider2D>().enabled = false;
@@ -93,7 +95,8 @@ public class fistControl : MonoBehaviour
         if (other.tag == "breakable")
         {
             dmgScript = other.gameObject.GetComponent<objectDamageControl>();
-            if (dmgScript == null) dmgScriptAlt = other.gameObject.GetComponent<ObjectWithDropControl>();
+            dmgScriptAlt = other.gameObject.GetComponent<ObjectWithDropControl>();
+            zombieScript = other.gameObject.GetComponent<zombieControl>();
             breakableInTrigger = true;
         }
     }
