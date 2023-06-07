@@ -2242,6 +2242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1087873908}
+  health: 20
 --- !u!212 &1196011122
 SpriteRenderer:
   m_ObjectHideFlags: 0
