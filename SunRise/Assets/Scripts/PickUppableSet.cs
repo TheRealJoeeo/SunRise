@@ -58,6 +58,14 @@ public class PickUppableSet : MonoBehaviour
                 ammoRingTemp.GetComponent<Renderer>().material.color = blackishThing;
             }
         }
+        if (whatIAm.tag == "ammo")
+        {
+            GameObject Ammotemp = Instantiate(whatIAm, new Vector3(0, 0, 0.5f), transform.rotation);
+            Ammotemp.transform.localPosition = new Vector3(whatIAm.transform.localPosition.x - 1, whatIAm.transform.localPosition.y, -1); //Left one 
+           
+            GameObject Ammotemp2 = Instantiate(whatIAm, new Vector3(0, 0, 0.5f), transform.rotation);
+            Ammotemp2.transform.localPosition = new Vector3(whatIAm.transform.localPosition.x + 1, whatIAm.transform.localPosition.y, -1); //right one 
+        }
     }
 
     // runs every frame

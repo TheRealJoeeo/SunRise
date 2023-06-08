@@ -1,38 +1,30 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class ActivateOnKeypress : MonoBehaviour
+
+public class ammoTypeControl : MonoBehaviour
 {
-    public KeyCode ActivationKey = KeyCode.LeftControl;
-    public int PriorityBoostAmount = 10;
-    public GameObject Reticle;
+    [SerializeField] private string ammoType; 
+    // Start is called before the first frame update
+    
+    public string getAmmoType()
+    {
+        return ammoType; 
+    }
 
-    Cinemachine.CinemachineVirtualCameraBase vcam;
-    bool boosted = false;
+    public void setAmmoType(string ammoType)
+    {
+        this.ammoType = ammoType; 
+    }
 
     void Start()
     {
-        vcam = GetComponent<Cinemachine.CinemachineVirtualCameraBase>();
+        
     }
 
     void Update()
     {
-        if (vcam != null)
-        {
-            if (Input.GetKey(ActivationKey))
-            {
-                if (!boosted)
-                {
-                    vcam.Priority += PriorityBoostAmount;
-                    boosted = true;
-                }
-            }
-            else if (boosted)
-            {
-                vcam.Priority -= PriorityBoostAmount;
-                boosted = false;
-            }
-        }
-        if (Reticle != null)
-            Reticle.SetActive(boosted);
+
     }
 }

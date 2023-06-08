@@ -12,7 +12,7 @@ public class PickUppable : MonoBehaviour
     // determines what the item is
     [SerializeField] private GameObject[] possibleItems;
     private GameObject whatIAm;
-
+    [SerializeField] private GameObject setDroppedItemFab;
     [SerializeField] private float scale = 1.3f;
 
     public GameObject ammoRing;  // Gets the ammoRing prefab 
@@ -48,14 +48,10 @@ public class PickUppable : MonoBehaviour
                 Color yellow = new Color(0.9490197f, 0.6470588f, 0.003921569f, 1f);
                 ammoRingTemp.GetComponent<Renderer>().material.color = yellow;
 
-                GameObject Ammotemp = Instantiate(BlankAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
-                Ammotemp.transform.SetParent(gameObject.transform, false);
-                Ammotemp.transform.localPosition = new Vector3(temp.transform.localPosition.x - 1, temp.transform.localPosition.y, -1); //Left one 
-                Ammotemp.GetComponent<Renderer>().material.color = yellow;
-                GameObject Ammotemp2 = Instantiate(BlankAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
-                Ammotemp2.transform.SetParent(gameObject.transform, false);
-                Ammotemp2.transform.localPosition = new Vector3(temp.transform.localPosition.x + 1, temp.transform.localPosition.y, -1); //right one 
-                Ammotemp2.GetComponent<Renderer>().material.color = yellow;
+                GameObject tempAmmo = Instantiate(BlankAmmo, new Vector3(0, 0, 0.5f), transform.rotation);
+                setDroppedItemFab.GetComponent<PickUppableSet>().setWhatIAm(tempAmmo);
+
+                
             }
             if (whatIAm.GetComponent<gunControl>().getAmmoType() == "7.62mm")
             {
@@ -113,7 +109,7 @@ public class PickUppable : MonoBehaviour
                     temp.transform.SetParent(GameObject.Find("PlayerGraphicsAndFistHitbox").transform, false);
                     temp.transform.Find("WorldImage").gameObject.SetActive(false);
                 }
-                if (whatIAm.tag == "ammo")
+                else if (whatIAm.tag == "ammo")
                 {
                     ammoCount++;
                     ammoCounter.text = ammoCount.ToString(); 
