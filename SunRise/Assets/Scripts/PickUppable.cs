@@ -38,9 +38,11 @@ public class PickUppable : MonoBehaviour
         //Dheera here: pretty sure this is the part that spawns in the actual prefab in as a gameObject, so gonna experiment with adding in the ring here 
         if (whatIAm.transform.Find("WorldImage") != null)
         {
+            // create gameobject of what item type it is on it
             GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 0.5f), transform.rotation);
             temp.transform.SetParent(gameObject.transform, false);
             temp.transform.localPosition = new Vector3(temp.transform.localPosition.x, temp.transform.localPosition.y, -1);
+            // add ammo ring
             if (whatIAm.GetComponent<gunControl>().getAmmoType() == "9mm")
             {
                 GameObject ammoRingTemp = Instantiate(ammoRing, new Vector3(0,0,0.5f), transform.rotation);

@@ -11,7 +11,7 @@ public class inventoryControl : MonoBehaviour
     {
         activeSlot = "empty";
     }
-
+    // get and set functions
     public string getActive()
     {
         return activeSlot;

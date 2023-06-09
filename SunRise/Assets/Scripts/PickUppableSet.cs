@@ -19,16 +19,18 @@ public class PickUppableSet : MonoBehaviour
 
     }
 
-    public void setWhatIAm(GameObject wia)
+    public void setWhatIAm(GameObject wia) // set what item this puickuppable is
     {
         gameObject.transform.localScale = new Vector3(0,0,0);
 
         whatIAm = wia;
         if (whatIAm.transform.Find("WorldImage") != null)
         {
+            // create the item it is ontop of this object
             GameObject temp = Instantiate(whatIAm.transform.Find("WorldImage").gameObject, new Vector3(0, 0, 2), transform.rotation);
             temp.transform.SetParent(gameObject.transform, false);
             temp.transform.localPosition = new Vector3(temp.transform.localPosition.x, temp.transform.localPosition.y, -1);
+            // set ammo ring based on the ammo type of gun
             if (whatIAm.GetComponent<gunControl>().getAmmoType() == "9mm")
             {
                 GameObject ammoRingTemp = Instantiate(ammoRing, new Vector3(0,0,0.5f), transform.rotation);
@@ -58,7 +60,7 @@ public class PickUppableSet : MonoBehaviour
                 ammoRingTemp.GetComponent<Renderer>().material.color = blackishThing;
             }
         }
-        if (whatIAm.tag == "ammo")
+        if (whatIAm.tag == "ammo") // work in progress
         {
             GameObject Ammotemp = Instantiate(whatIAm, new Vector3(0, 0, 0.5f), transform.rotation);
             Ammotemp.transform.localPosition = new Vector3(whatIAm.transform.localPosition.x - 1, whatIAm.transform.localPosition.y, -1); //Left one 

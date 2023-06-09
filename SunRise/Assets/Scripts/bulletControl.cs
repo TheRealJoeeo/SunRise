@@ -34,22 +34,27 @@ public class bulletControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // check if touching something that can be applied damage too
         if (breakableInTrigger)
         {
-            // variable bullet daamage would be applied here
+            // variable bullet damage
             if (dmgScript != null) dmgScript.appDmg(damage);
             else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(damage);
             else if (zombieScript != null) zombieScript.appDmg(damage);
 
             Debug.Log(gameObject.transform.parent.gameObject.GetComponent<Collider2D>() != null);
 
+            // delete the bullet
             if (gameObject.transform.parent.gameObject.GetComponent<Collider2D>() != null)
                 Destroy(gameObject.transform.parent.gameObject);
         }
 
+        /* resolved
         if (parent.GetComponent<Rigidbody2D>().velocity.magnitude == 0)
             Debug.Log("bullet falloff velocity bug");
+        */
 
+        // this controls the bullet fading away and also deleting itself (the range of the bullet)
         if (parent.GetComponent<Rigidbody2D>().velocity.magnitude <= fallOffVel && cheap == 10)
         {
             if (parent.GetComponent<Rigidbody2D>().velocity.magnitude < 0.01f)
@@ -65,11 +70,13 @@ public class bulletControl : MonoBehaviour
             cheap++;
     }
 
-    private float map(float s, float a1, float a2, float b1, float b2)
+    private float map(float s, float a1, float a2, float b1, float b2) // map function as seen in objectDamage scripts
     {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 
+
+    // detect if soemthing breakable is touching this bullet
     void OnTriggerEnter2D(Collider2D other)
     {
         // check if that object is player

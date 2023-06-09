@@ -44,11 +44,13 @@ public class zombieControl : MonoBehaviour
     {
         // MOVEMENT CONTROL //
 
+        // similar to rotatePlayer script - points towards player
         Vector3 ObjPos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Camera.main.WorldToScreenPoint(player.transform.position) - ObjPos;
         float z = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, -z);
 
+        // move forward infeinetly
         rb.AddForce(transform.up * speed);
 
         // FIST CONTROL //
@@ -60,7 +62,8 @@ public class zombieControl : MonoBehaviour
         localLocalL *= 0.9f;
         Lfist.transform.localPosition = new Vector2((localLocalL.x - 0.4f), (localLocalL.y + 0.4f));
 
-        if (isTouchingPlayer && counter == 0)
+        // this is basically essentially the same as the fistControl script, except instead of puinching when mouse is clicked, it punches when in contact with the player
+        if (isTouchingPlayer && counter >= 0)
         {
             gameObject.GetComponent<Collider2D>().enabled = true;
 
@@ -73,6 +76,9 @@ public class zombieControl : MonoBehaviour
 
             GameObject.Find("Slider").GetComponent<healthControl>().applDmg(5f);
             a.PlayOneShot(sounds[1]);
+
+            counter = 0;
+            counter -= attackDelay;
         }
 
         if (timer >= 0)
@@ -83,23 +89,27 @@ public class zombieControl : MonoBehaviour
         }
         timer += Time.deltaTime;
 
-        counter++;
-        if (counter > attackDelay)
-            counter = 0;
+        counter += Time.deltaTime;
     }
 
     public void appDmg(float dmg)
     {
+        // applies damage TO the ZOMBIE, NOT ON the PLAYER
+
         health -= dmg;
         ZombieParticles.Emit(1);
         if (health <= 0)
         {
+            // if less than zero, then do ur fancy death stuff, and add to score
+            GameObject.Find("DeathControl").GetComponent<deathControl>().increaseScoreBy(1);
             ZombieParticles.Emit(10);
             ZombieParticles.gameObject.transform.SetParent(GameObject.Find("ParticleDestroyer").transform, true);
             Destroy(gameObject);
         }
     }
 
+
+    // updates wheter or not its touching the player
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")
