@@ -51,11 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d918a48184bbd6546bea7470d31b01d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   ZombieParticles: {fileID: 8770705317356769994}
   health: 20
   speed: 3
-  attackDelay: 20
+  attackDelay: 2
   Rfist: {fileID: 8770705317558174494}
   Lfist: {fileID: 8770705317951443217}
   a: {fileID: 8770705316110573283}

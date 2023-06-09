@@ -26,16 +26,20 @@ public class healthControl : MonoBehaviour
     void Update()
     {
         hpbar.value = playerHp;
+        /* debug controls
         if (Input.GetKeyDown(KeyCode.K)) {
             applDmg(10);
         }
         if (Input.GetKeyDown(KeyCode.L)) {
             applDmg(-10);
-
         }
-        if (playerHp <= 0) {
+        */
+
+        if (playerHp <= 0) { 
+            // if health less than zero, then die
             life = false;
-            dicon.SetActive(true);
+            // change player from looking like a player to just a skull icon
+            dicon.SetActive(true); 
             Destroy(playerGraphics);    
         }
 
@@ -44,8 +48,11 @@ public class healthControl : MonoBehaviour
   }
 
     public void applDmg(float dmg) { // Make it negative to give health 
+        // sound affects and particles maybe later
         //a.PlayOneShot(sounds[1]);
         //if (breakEffect != null) breakEffect.Emit(Random.Range(0,2));
+
+        // apply damage, make sure it no go below zero
         playerHp -= dmg;
         if (playerHp < 0) playerHp = 0;
     }

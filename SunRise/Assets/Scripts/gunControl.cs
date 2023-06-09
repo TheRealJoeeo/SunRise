@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FireType
+public enum FireType // this is so the fire type appears as a drop down in the inspector window
 {
     SemiRapid,
     Rapid,
@@ -53,22 +53,24 @@ public class gunControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (shellEjection != null) shellEjection.Stop();
+        if (shellEjection != null) shellEjection.Stop(); // set ejection
         this.transform.localPosition = new Vector2(xOffSet, yOffSet);
-        GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive(itemType);
+        GameObject.Find("Inventory").GetComponent<inventoryControl>().setActive(itemType); // update the inventory so that the player knows its holding a gun
 
+        // get other necssary components
         a = GetComponent<AudioSource>();
 
         a.PlayOneShot(sounds[1]);
 
         spedScript = GameObject.Find("PlayerHitBox").GetComponent<PlayerControl>();
 
-        isRecoiled = false;
+        isRecoiled = false; // not slowed down when first initalized
     }
 
     // Update is called once per frame
     void Update()
     {
+        // differnt types of firing
         if (
         (FireRateType == FireType.SemiRapid && Input.GetMouseButtonDown(0)) ||
         (FireRateType == FireType.Rapid && Input.GetMouseButton(0))
@@ -77,7 +79,7 @@ public class gunControl : MonoBehaviour
             if (timer >= 0)
             {
 
-                a.PlayOneShot(sounds[0]);
+                a.PlayOneShot(sounds[0]); // plays sound
 
                 GameObject temp = Instantiate(bullet, gameObject.transform.Find("bulletSpawnLocation").transform.localPosition, transform.rotation); // creates bullet off of bullet prefab
                 temp.transform.SetParent(GameObject.Find("bulletSpawnLocation").transform, false); // sets the bullet to a child of the player to get its rotation
@@ -99,18 +101,19 @@ public class gunControl : MonoBehaviour
                 temp.transform.parent = null; // remove the bullet as a child of the player so its detached from it (ie so it doesnt rotate with it anymore)
 
                 timer = 0;
-                timer = timer - fireDelayInSecondsIThink;
+                timer = timer - fireDelayInSecondsIThink; // reset timer (this stuff adds the fire delay (based on seconds, not frames))
 
-                if (shellEjection != null) shellEjection.Emit(1);
+                if (shellEjection != null) shellEjection.Emit(1); // emit bullet shell
 
-                isRecoiled = true;
+                isRecoiled = true; // apply recoil, if any
             }
         }
-        timer += Time.deltaTime;
+        timer += Time.deltaTime; // increase timer
 
         if (timer >= 0)
             isRecoiled = false;
 
+        // slow player if recoiled
         if (isRecoiled)
         {
             spedScript.setSpeed(spedScript.getSpeed() - recoil);
