@@ -36,12 +36,11 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // get dialgoue component from helper script
         dialogue = GameObject.Find("DialogueHolder").GetComponent<DialogueHolder>().PickUp;
 
         // get the rigid body componenet so i dont have to add it in the inspector
         rb = this.GetComponent<Rigidbody2D>();
-        // audio
+
         a = GetComponent<AudioSource>();
 
         speed = regSpeed;
@@ -50,12 +49,10 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (plyHPScript.getLife()) // only move if alive
+        if (plyHPScript.getLife())
         {
-            // movement
             if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             {
-                // delay foot step sounds so it sounds like footsteps based off the player's speed
                 if (timer >= 0)
                 {
                     a.PlayOneShot(sounds[ct]);
@@ -79,7 +76,6 @@ public class PlayerControl : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Q)) //  q to drop an object
             {
-                // is player holding weapon in first place
                 bool holdingWeapon = false;
                 int i = 0;
                 for (; i < this.transform.GetChild(0).childCount; i++)
@@ -92,7 +88,6 @@ public class PlayerControl : MonoBehaviour
                         break;
                     }
                 }
-                // if so do the stuff to make it drop
                 if (holdingWeapon)
                 {
                     this.transform.GetChild(0).GetChild(i).gameObject.GetComponent<gunControl>().eraseRecoil();
@@ -123,7 +118,6 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            // disable player from moving at all if it is dead
             rb.isKinematic = true;
             rb.velocity = Vector2.zero;
         }

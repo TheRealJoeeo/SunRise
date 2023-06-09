@@ -47,20 +47,19 @@ public class fistControl : MonoBehaviour
                 localLocalL *= 0.9f;
                 Lfist.transform.localPosition = new Vector2((localLocalL.x - 0.4f), (localLocalL.y + 0.4f));
 
-                if (Input.GetMouseButtonDown(0)) // if mouse clicked, pucnh
+                if (Input.GetMouseButtonDown(0))
                 {
-                    gameObject.GetComponent<Collider2D>().enabled = true; // get collider ready to check if collision to do damage
+                    gameObject.GetComponent<Collider2D>().enabled = true;
 
-                    // fist sound, and then fist punch animation (randomnized)
                     a.Play();
-                    int temp = Random.Range(0, 2); 
+                    int temp = Random.Range(0, 2);
 
                     if (temp == 0)
                         localLocalR = new Vector2(-0.45f, 0.7f);
                     else
                         localLocalL = new Vector2(0.45f, 0.5f);
 
-                    if (breakableInTrigger) // if touching something breakable, break it
+                    if (breakableInTrigger)
                     {
                         if (dmgScript != null) dmgScript.appDmg(1);
                         else if (dmgScriptAlt != null) dmgScriptAlt.appDmg(1);
@@ -72,7 +71,6 @@ public class fistControl : MonoBehaviour
 
                 }
             }
-            // positions for if the player is holding x type of gun
             else if (GameObject.Find("Inventory").GetComponent<inventoryControl>().getActive() == "pistol")
             {
                 Lfist.transform.localPosition = new Vector2(0, 0.4f);
@@ -90,8 +88,6 @@ public class fistControl : MonoBehaviour
             }
         }
     }
-
-    // check when something the palyer can do damage to enters the trigger and when it leaves
 
     void OnTriggerEnter2D(Collider2D other)
     {

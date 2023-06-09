@@ -18,7 +18,6 @@ public class SpawnControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // spawn all da stuff
         for (int i = 0; i < 25; i++)
             spawn(treeFab, -22.5f, 22.5f, -1, true, 1000);
         for (int i = 0; i < 25; i++)
@@ -30,7 +29,7 @@ public class SpawnControl : MonoBehaviour
 
         // spawn a set beginning wave
         for (int i = 0; i < 5; i++)
-            spawn(zombieFab, -7f, 7f, 0, true, 1000);
+            spawn(zombieFab, 7f, 7f, 0, true, 1000);
 
         timer = 0;
         timer = timer - delayBetweenWaves;
@@ -54,7 +53,6 @@ public class SpawnControl : MonoBehaviour
         }
     }
 
-    // versatile spawn function for all your spawning needs
     private void spawn(GameObject obj, float start, float end, float layer, bool randAngle, float tries)
     {
         Quaternion tempRandAngle;
@@ -63,13 +61,10 @@ public class SpawnControl : MonoBehaviour
 
         GameObject temp = Instantiate(obj, new Vector3(Random.Range(start, end), Random.Range(start, end), layer), tempRandAngle);
 
-        // this section is a work in progress - is supposed to prevent objects from overlapping, but doesn't work yet
-
         Physics2D.SyncTransforms();
         Debug.Log(temp.GetComponent<Rigidbody2D>().IsTouchingLayers());
         Physics2D.SyncTransforms();
 
-        
         if (temp.GetComponent<Collider2D>().IsTouchingLayers())
         {
             Debug.Log("ReAdjusting");

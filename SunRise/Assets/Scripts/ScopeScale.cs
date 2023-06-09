@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-// this script is of a feature that will be implemented later on in the game
-
 public class ScopeScale : MonoBehaviour
 {
     [HideInInspector] private float goalScope = 7f;
@@ -16,7 +14,6 @@ public class ScopeScale : MonoBehaviour
     }
     void Update()
     {
-        /* debug
         // this is just here so we can test scope changing with user input; actual game will probably have an item pick up that triggers this
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -32,7 +29,6 @@ public class ScopeScale : MonoBehaviour
             goalScope += 15;
             Debug.Log(goalScope);
         }
-        */
 
         vcam.m_Lens.OrthographicSize += ((goalScope - vcam.m_Lens.OrthographicSize) / 50f); // smooth scaling
     }
