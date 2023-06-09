@@ -8,6 +8,12 @@ public class SpawnControl : MonoBehaviour
     [SerializeField] private GameObject treeFab;
     [SerializeField] private GameObject rockFab;
     [SerializeField] private GameObject crateFab;
+    [SerializeField] private GameObject zombieFab;
+
+    [SerializeField] private float delayBetweenWaves;
+    private float timer;
+
+    [SerializeField] private healthControl plyHPScript;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +26,31 @@ public class SpawnControl : MonoBehaviour
             spawn(crateFab, -22.5f, 22.5f, 1, false, 1000);
         for (int i = 0; i < 3; i++)
             spawn(itemFab, -22.5f, 22.5f, 1, false, 1000);
+
+        // spawn a set beginning wave
+        for (int i = 0; i < 5; i++)
+            spawn(zombieFab, 7f, 7f, 0, true, 1000);
+
+        timer = 0;
+        timer = timer - delayBetweenWaves;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (plyHPScript.getLife())
+        {
+            if (timer >= 0)
+            {
+                Debug.Log("New Wave");
+                for (int i = 0; i < Random.Range(15, 20); i++)
+                {
+                    spawn(zombieFab, -22f, 22f, 0, true, 1000);
+                }
+                timer = timer - delayBetweenWaves;
+            }
+            timer += Time.deltaTime;
+        }
     }
 
     private void spawn(GameObject obj, float start, float end, float layer, bool randAngle, float tries)
