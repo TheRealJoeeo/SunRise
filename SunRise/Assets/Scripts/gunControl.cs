@@ -73,9 +73,9 @@ public class gunControl : MonoBehaviour
 
         isRecoiled = false; // not slowed down when first initalized
 
-        reloading = false;
+        reloading = true;
 
-        mag = magSize;
+        mag = 0;
     }
 
     // Update is called once per frame
@@ -140,7 +140,7 @@ public class gunControl : MonoBehaviour
         }
 
         // reload
-        if (!reloading && Input.GetKeyDown(KeyCode.R))
+        if (!reloading && (Input.GetKeyDown(KeyCode.R) || (Input.GetMouseButtonDown(0) && mag <= 0)))
         {
             reloading = true;
         }

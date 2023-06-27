@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: sniper
-  bulletVel: 550
+  bulletVel: 300
   bulletFallOffVel: 1
-  bulletDmg: 15
+  bulletDmg: 1e+24
   spreadAngle: 0
   reloadTime: 3
   magSize: 5

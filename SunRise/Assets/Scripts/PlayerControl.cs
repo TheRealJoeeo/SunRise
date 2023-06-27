@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -36,6 +38,8 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("Canvas").transform.Find("ammoDisplay").GetComponent<TMP_Text>().text = ""; // not holding gun so dont show ammo count
+
         // get dialgoue component from helper script
         dialogue = GameObject.Find("DialogueHolder").GetComponent<DialogueHolder>().PickUp;
 
@@ -95,6 +99,9 @@ public class PlayerControl : MonoBehaviour
                 // if so do the stuff to make it drop
                 if (holdingWeapon)
                 {
+                    GameObject.Find("Canvas").transform.Find("reloadTimer").GetComponent<Slider>().value = 0;
+                    GameObject.Find("Canvas").transform.Find("ammoDisplay").GetComponent<TMP_Text>().text = "";
+
                     this.transform.GetChild(0).GetChild(i).gameObject.GetComponent<gunControl>().eraseRecoil();
                     speed = regSpeed;
 

@@ -4979,7 +4979,7 @@ MonoBehaviour:
   itemType: sniper
   bulletVel: 500
   bulletFallOffVel: 5
-  bulletDmg: 10
+  bulletDmg: 20
   spreadAngle: 2
   reloadTime: 3
   magSize: 3
