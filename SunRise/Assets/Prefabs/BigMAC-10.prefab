@@ -138,6 +138,8 @@ MonoBehaviour:
   bulletFallOffVel: 20
   bulletDmg: 1
   spreadAngle: 20
+  reloadTime: 3
+  magSize: 100
   fireDelayInSecondsIThink: 0.05
   recoil: 0
   FireRateType: 1
@@ -5114,8 +5116,8 @@ Transform:
   m_GameObject: {fileID: 8906544057334153615}
   m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2579746580731139639}
   m_RootOrder: 2
@@ -5161,7 +5163,7 @@ SpriteRenderer:
   m_SortingLayerID: 1823818477
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 09a419e56f4f6614fa16fc454c4025f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 587239379407d024ea13207f657ff863, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

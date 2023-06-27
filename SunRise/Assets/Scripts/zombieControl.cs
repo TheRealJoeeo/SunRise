@@ -40,7 +40,7 @@ public class zombieControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // MOVEMENT CONTROL //
 
@@ -51,7 +51,7 @@ public class zombieControl : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, -z);
 
         // move forward infeinetly
-        rb.AddForce(transform.up * speed);
+        rb.AddForce(transform.up * speed * Time.fixedDeltaTime);
 
         // FIST CONTROL //
 
@@ -87,9 +87,9 @@ public class zombieControl : MonoBehaviour
 
             timer = timer - (Random.Range(4f, 7f));
         }
-        timer += Time.deltaTime;
+        timer += Time.fixedDeltaTime;
 
-        counter += Time.deltaTime;
+        counter += Time.fixedDeltaTime;
     }
 
     public void appDmg(float dmg)

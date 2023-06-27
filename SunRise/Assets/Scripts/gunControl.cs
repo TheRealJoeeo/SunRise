@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public enum FireType // this is so the fire type appears as a drop down in the inspector window
 {
@@ -16,6 +18,11 @@ public class gunControl : MonoBehaviour
     [SerializeField] private float bulletFallOffVel;
     [SerializeField] private float bulletDmg;
     [SerializeField] private float spreadAngle;
+    [SerializeField] private float reloadTime;
+    private float rTimer = 0.0f;
+    private bool reloading;
+    [SerializeField] private float magSize;
+    private float mag;
 
     [SerializeField] private float fireDelayInSecondsIThink;
     [SerializeField] private float recoil;
@@ -65,19 +72,28 @@ public class gunControl : MonoBehaviour
         spedScript = GameObject.Find("PlayerHitBox").GetComponent<PlayerControl>();
 
         isRecoiled = false; // not slowed down when first initalized
+
+        reloading = false;
+
+        mag = magSize;
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameObject.Find("Canvas").transform.Find("ammoDisplay").GetComponent<TMP_Text>().text = mag.ToString();
+
         // differnt types of firing
-        if (
-        (FireRateType == FireType.SemiRapid && Input.GetMouseButtonDown(0)) ||
-        (FireRateType == FireType.Rapid && Input.GetMouseButton(0))
-        )
+        if (mag > 0 && !reloading &&
+            (
+                (FireRateType == FireType.SemiRapid && Input.GetMouseButtonDown(0)) ||
+                (FireRateType == FireType.Rapid && Input.GetMouseButton(0))
+            )
+           )
         {
             if (timer >= 0)
             {
+                mag--;
 
                 a.PlayOneShot(sounds[0]); // plays sound
 
@@ -122,5 +138,28 @@ public class gunControl : MonoBehaviour
         {
             spedScript.setSpeed(spedScript.getSpeed());
         }
+
+        // reload
+        if (!reloading && Input.GetKeyDown(KeyCode.R))
+        {
+            reloading = true;
+        }
+        if (reloading)
+        {
+            rTimer += Time.deltaTime;
+            if (rTimer >= reloadTime)
+            {
+                mag = magSize;
+                rTimer = 0;
+                reloading = false;
+            }
+            GameObject.Find("Canvas").transform.Find("reloadTimer").GetComponent<Slider>().value = map(rTimer, 0, reloadTime, 0, 100);
+            Debug.Log(map(rTimer, 0, magSize, 0, 100));
+        }
+    }
+
+    private float map(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 }

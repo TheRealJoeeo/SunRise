@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ZombieParticles: {fileID: 8770705317356769994}
   health: 20
-  speed: 3
+  speed: 400
   attackDelay: 2
   Rfist: {fileID: 8770705317558174494}
   Lfist: {fileID: 8770705317951443217}

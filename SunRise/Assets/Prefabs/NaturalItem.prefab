@@ -154,6 +154,7 @@ MonoBehaviour:
   - {fileID: 6175883151607389531, guid: de340fb602e4e774cb5af6b5a045c76d, type: 3}
   - {fileID: 1085019638188162551, guid: 97244c8456c9d7042adb028a3c11b850, type: 3}
   - {fileID: 4017625081292424746, guid: fce794c7ea45cf9428396e4693718207, type: 3}
+  - {fileID: 437813333165676750, guid: faa39d926873c3d45be20c43210682bf, type: 3}
   setDroppedItemFab: {fileID: 8325443632704415512, guid: d3176731519935a45a7595ff0e89eb0c, type: 3}
   scale: 1.3
   ammoRing: {fileID: 3404530072773655622, guid: 67f819c3a3ef8954d85cfb2a7a83423d, type: 3}

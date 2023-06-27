@@ -54,6 +54,8 @@ MonoBehaviour:
   bulletFallOffVel: 27
   bulletDmg: 2.1
   spreadAngle: 5
+  reloadTime: 3
+  magSize: 22
   fireDelayInSecondsIThink: 0.05
   recoil: 0
   FireRateType: 1
